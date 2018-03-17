@@ -36,7 +36,6 @@ RUN echo "MoinMoin 1.9.9 wiki engine Docker image!"; \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python \
     curl \
-    openssl \
     nginx \
     uwsgi \
     uwsgi-plugin-python \
@@ -68,13 +67,6 @@ RUN mkdir -p /var/cache/nginx/cache && \
         /etc/nginx/sites-available/moinmoin.conf \
         /etc/nginx/sites-enabled/moinmoin.conf && \
     rm /etc/nginx/sites-enabled/default
-
-# Create self signed certificate
-ADD generate_ssl_key.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/generate_ssl_key.sh && \
-    /usr/local/bin/generate_ssl_key.sh moinmoin.example.org && \
-    mv cert.pem /etc/ssl/certs/ && \
-    mv key.pem /etc/ssl/private/
 
 # Cleanup
 RUN rm ${MM_FILE} && \
