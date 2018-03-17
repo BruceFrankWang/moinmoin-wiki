@@ -70,7 +70,7 @@ class Config(multiconfig.DefaultConfig):
     # Wiki logo. You can use an image, text or both. [Unicode]
     # For no logo or text, use '' - the default is to show the sitename.
     # See also url_prefix setting below!
-    logo_string = u'<img src="%s/common/logo.png" alt="Logo">' % url_prefix_static
+    logo_string = u'<img src="%s/common/moinmoin.png" alt="MoinMoin Logo">' % url_prefix_static
 
     # name of entry page / front page [Unicode], choose one of those:
 
@@ -78,7 +78,7 @@ class Config(multiconfig.DefaultConfig):
     #page_front_page = u"MyStartingPage"
 
     # b) if wiki content is maintained in many languages
-    page_front_page = u"FrontPage"
+    #page_front_page = u"FrontPage"
 
     # The interwiki name used in interwiki links
     #interwikiname = u'UntitledWiki'
@@ -91,7 +91,7 @@ class Config(multiconfig.DefaultConfig):
 
     # This is checked by some rather critical and potentially harmful actions,
     # like despam or PackageInstaller action:
-    superuser = [u"mmAdmin", ]
+    #superuser = [u"YourName", ]
 
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
@@ -116,7 +116,7 @@ class Config(multiconfig.DefaultConfig):
     # SMTP server, e.g. "mail.provider.com" (None to disable mail)
     #mail_smarthost = ""
 
-    # The return address, e.g u"Jï¿½rgen Wiki <noreply@mywiki.org>" [Unicode]
+    # The return address, e.g u"Jürgen Wiki <noreply@mywiki.org>" [Unicode]
     #mail_from = u""
 
     # "user pwd" if you need to use SMTP AUTH
@@ -133,7 +133,7 @@ class Config(multiconfig.DefaultConfig):
     # according to the user selected language. [Unicode]
     navi_bar = [
         # If you want to show your page_front_page here:
-        u'%(page_front_page)s',
+        #u'%(page_front_page)s',
         u'RecentChanges',
         u'FindPage',
         u'HelpContents',
@@ -168,5 +168,4 @@ class Config(multiconfig.DefaultConfig):
 
     # Enable graphical charts, requires gdchart.
     #chart_options = {'width': 600, 'height': 300}
-
 
