@@ -16,6 +16,22 @@ ENV MM_FILE=moin-1.9.9.tar.gz \
     MM_PATCH_URL=https://bitbucket.org/thomaswaldmann/moin-1.9/commits \
     MM_PATCH_ID=561b7a9c2bd91b61d26cd8a5f39aa36bf5c6159e
 
+# Whether change the repository to USTC mirror.
+ARG USE_CN_REPO=FALSE
+
+# Change the repository or not
+RUN echo "MoinMoin 1.9.9 wiki engine Docker image!"; \
+    if [ "$(echo ${USE_CN_REPO} | tr [:lower:] [:upper:])" = "TRUE" ]; then \
+        echo "Changing the repositories..."; \
+        cp /etc/apt/sources.list /etc/apt/backup-sources.list && \
+        sed -i \
+            -e 's/http:\/\/security.debian.org/http:\/\/mirrors.ustc.edu.cn\/debian-security/g' \
+            -e 's/http:\/\/deb.debian.org/http:\/\/mirrors.ustc.edu.cn/g' \
+            /etc/apt/sources.list; \
+    else \
+        echo "Using the official repositories."; \
+    fi
+
 # Install software
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python \
@@ -70,9 +86,9 @@ RUN rm ${MM_FILE} && \
 VOLUME /usr/local/share/moin/data
 
 EXPOSE 80
-EXPOSE 443
 
-CMD service rsyslog start && service nginx start && \
+CMD service rsyslog start && \
+    service nginx start && \
     uwsgi --uid www-data \
         -s /tmp/uwsgi.sock \
         --plugins python \
