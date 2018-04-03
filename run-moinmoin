@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# A valid MoinMoin wiki instance is organized like:
+#    ..
+#     └─ instance_dir/
+#          ├─ wikiconfig.py
+#          ├─ data/
+#          ├─ underlay/
+#          .
+#          .
+#          └─ htdocs/
+# 
+# This is described in file <wikiconfig.py>.
+# And I added a directory named as <htdocs>, for totally customization or personalization of static files.
+
+if [[ ! ( -d ${WIKI_INSTANCE}/data && \
+	      -d ${WIKI_INSTANCE}/underlay && \
+	      -d ${WIKI_INSTANCE}/htdocs && \
+	      -s ${WIKI_INSTANCE}/wikiconfig.py ) ]]; then
+    rm -rf ${WIKI_INSTANCE}/*
+
+    #####
+    # Make a MoinMoin wiki instance, and configure it.
+    #####
+    mkdir -p ${WIKI_INSTANCE}
+    mkdir -p ${WIKI_INSTANCE}/log
+    cp -rf ${WIKI_SOURCE}/data ${WIKI_INSTANCE}/
+    cp -rf ${WIKI_SOURCE}/underlay ${WIKI_INSTANCE}/
+    cp -rf ${WIKI_HTDOCS} ${WIKI_INSTANCE}/
+    cp ${WIKI_SOURCE}/server/moin.wsgi ${WIKI_INSTANCE}
+    cp ${WIKI_SOURCE}/config/wikiconfig.py ${WIKI_INSTANCE}
+    cp ${WIKI_SOURCE}/config/logging/logfile ${WIKI_INSTANCE}
+
+    # moin.wsgi
+    sed -i \
+        -e "1s|iso-8859-1|utf-8|" \
+        -e "39s|#||" \
+        -e "40s|#||" \
+        -e "40s|/path/to/logging_configuration_file|${WIKI_INSTANCE}/logfile|" \
+        -e "49s|True|${WIKI_INSTANCE}/htdocs|" \
+        -e "34i\sys.path.insert(0, \"${WIKI_INSTANCE}\")" \
+        ${WIKI_INSTANCE}/moin.wsgi
+
+    # wikiconfig.py
+    sed -i \
+        -e "1s|iso-8859-1|utf-8|" \
+        -e "68s|Untitled Wiki|${WIKI_NAME}|" \
+        -e "152s|en|zh|" \
+        -e "170s|#||" \
+        -e "95i\    superuser = [u\"${WIKI_ADMIN}\", ]" \
+        ${WIKI_INSTANCE}/wikiconfig.py
+
+    # Logfile
+    sed -i \
+        -e "4s|/tmp/moin.log|${WIKI_INSTANCE}/log/moin.log|" \
+        ${WIKI_INSTANCE}/logfile
+
+    # Permission
+    chown -R www-data:www-data ${WIKI_INSTANCE}
+    chmod -R +x ${WIKI_INSTANCE}
+
+    # Configure uWSGI
+    cp ${WIKI_SOURCE}/moinmoin.ini ${WIKI_INSTANCE}
+    sed -i \
+        -e "6s|/var/log/uwsgi/moinmoin.log|${WIKI_INSTANCE}/log/uwsgi.log|" \
+        -e "11s|/usr/local/share/moin|${WIKI_INSTANCE}|" \
+        -e "19s|/usr/local/share/moin|${WIKI_INSTANCE}|" \
+        ${WIKI_INSTANCE}/moinmoin.ini
+
+    # Configure Nginx
+    sed -i \
+        -e "11s|/var/log/nginx/moin_access.log|${WIKI_INSTANCE}/log/nginx_access.log|" \
+        -e "12s|/var/log/nginx/moin_error.log|${WIKI_INSTANCE}/log/nginx_error.log|" \
+        -e "27s|/usr/local/lib/python2.7/dist-packages/MoinMoin/web/static|${WIKI_INSTANCE}|" \
+        /etc/nginx/sites-available/moinmoin.conf
+fi

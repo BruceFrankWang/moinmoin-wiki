@@ -1,2 +1,8 @@
 # macOS Desktop Services Store file
 .DS_Store
+
+tmp
+
+build
+run
+start

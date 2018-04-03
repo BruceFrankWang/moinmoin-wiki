@@ -1,0 +1,12 @@
+.git
+.gitignore
+
+LICENSE
+
+*.md
+
+tmp
+
+build
+run
+start
