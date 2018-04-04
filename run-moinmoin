@@ -37,7 +37,7 @@ if [[ ! ( -d ${WIKI_INSTANCE}/data && \
         -e "39s|#||" \
         -e "40s|#||" \
         -e "40s|/path/to/logging_configuration_file|${WIKI_INSTANCE}/logfile|" \
-        -e "49s|True|${WIKI_INSTANCE}/htdocs|" \
+        -e "48s|True|${WIKI_INSTANCE}/htdocs|" \
         -e "34i\sys.path.insert(0, \"${WIKI_INSTANCE}\")" \
         ${WIKI_INSTANCE}/moin.wsgi
 
