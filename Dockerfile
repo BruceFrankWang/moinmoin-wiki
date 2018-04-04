@@ -53,8 +53,6 @@ RUN apt-get update -qqy && \
     apt-get install -qqy --no-install-recommends \
         python \
         curl \
-        libpcre3 \
-        libpcre3-dev \
         nginx \
         uwsgi \
         uwsgi-plugin-python \
@@ -108,9 +106,7 @@ VOLUME ${WIKI_INSTANCE}
 
 EXPOSE 80
 
-CMD /usr/bin/run-moinmoin && bash
-#CMD /usr/bin/run-moinmoin && \
-#    service rsyslog start && \
-#    service nginx start && \
-#    uwsgi --ini ${WIKI_INSTANCE}/moinmoin.ini
-    
+CMD /usr/bin/run-moinmoin && \
+    service rsyslog start && \
+    service nginx start && \
+    uwsgi --ini ${WIKI_INSTANCE}/moinmoin.ini    
