@@ -1,15 +1,12 @@
 sudo: required
 
-language: python
+language: bash
 
 services:
   - docker
 
-python:
-  - "2.7"
-
-env:
-  - ARCH=armhf CODENAME=stretch
+include:
+  - env: TARGET=armv7-unknown-linux-gnueabihf
 
 script:  
   - docker build -t brucefrankwang/rpi-moinmoin:1.9.9 .
