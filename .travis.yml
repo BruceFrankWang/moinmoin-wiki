@@ -1,7 +1,15 @@
 sudo: required
 
+language: python
+
 services:
   - docker
 
-before_install:  
+python:
+  - "2.7"
+
+env:
+  - ARCH=armhf CODENAME=stretch
+
+script:  
   - docker build -t brucefrankwang/rpi-moinmoin:1.9.9 .

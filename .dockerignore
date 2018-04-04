@@ -1,8 +1,9 @@
 .git
 .gitignore
 
-LICENSE
+.travis.yml
 
+LICENSE
 *.md
 
 tmp
