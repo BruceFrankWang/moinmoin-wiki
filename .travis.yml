@@ -20,9 +20,7 @@ deploy:
   skip_cleanup: true
   provider: script
   script:
-    - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-        make docker_deploy tag=latest;
-      fi
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    - make docker_deploy tag=latest;
   on:
     branch: master
