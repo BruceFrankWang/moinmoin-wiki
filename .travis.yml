@@ -11,3 +11,11 @@ before_install:
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t brucefrankwang/rpi-moinmoin .
+
+deploy:
+  provider: script
+  script:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker push $DOCKER_USERNAME/$DEPLOY_IMAGE
+  on:
+    branch: master
