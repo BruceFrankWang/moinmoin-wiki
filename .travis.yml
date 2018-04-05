@@ -6,8 +6,9 @@ services:
   - docker
 
 before_install:
-  - sudo apt install qemu-user-static
-  - docker run --rm --privileged multiarch/qemu-user-static:register
+  - sudo apt-get install -qqy --no-install-recommends qemu-user-static
+#  - docker run --rm --privileged multiarch/qemu-user-static:register
+  - sudo sh -c 'echo":arm:M::x7fELFx01x01x01x00x00x00x00x00x00x00x00x00x02x00x28x00:xffxffxffxffxffxffxffx00xffxffxffxffxffxffxffxffxfexffxffxff:/usr/bin/qemu-arm-static:">/proc/sys/fs/binfmt_misc/register'
 
 script:
   - docker build -t brucefrankwang/rpi-moinmoin:1.9.9 .
