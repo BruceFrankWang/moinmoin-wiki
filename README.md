@@ -1,6 +1,8 @@
 moinmoin-wiki
 =============
 
+https://travis-ci.org/BruceFrankWang/rpi-moinmoin.svg?branch=master
+
 Docker image with the Moinmoin wiki engine, uwsgi, nginx and self signed SSL.
 
 You can automatically download and run this with the following command
