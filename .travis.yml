@@ -13,9 +13,20 @@ install:
   - sudo apt install qemu qemu-user-static binfmt-support
 
 script:
-  - make build
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -t $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE) .
 
-after_success:
-  - echo "Prepare push..."
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - make docker_deploy tag=latest
+#after_success:
+#  - echo "Prepare push..."
+#  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+#  - make docker_deploy tag=latest
+
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
+deploy:
+  - provider: script
+    script: docker push $TRAVIS_REPO_SLUG
+    skip_cleanup: true
+    on:
+      branch: master
