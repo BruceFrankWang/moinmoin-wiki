@@ -7,7 +7,7 @@ services:
 
 before_install:
   - sudo apt install qemu qemu-user-static binfmt-support
-  - update-binfmts --enable qemu-arm
+#  - update-binfmts --enable qemu-arm
 #  - sudo sh -c 'echo":arm:M::x7fELFx01x01x01x00x00x00x00x00x00x00x00x00x02x00x28x00:xffxffxffxffxffxffxffx00xffxffxffxffxffxffxffxffxfexffxffxff:/usr/bin/qemu-arm-static:">/proc/sys/fs/binfmt_misc/register'
 
 script:

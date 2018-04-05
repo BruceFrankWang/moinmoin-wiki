@@ -9,14 +9,14 @@
 # TO_RUN:
 #        docker run -it -p 80:80 -v {HOST_DIR}:/srv/wiki --name my_wiki rpi-moinmoin
 
-FROM arm32v7/debian:stretch-slim
+FROM resin/rpi-raspbian:stretch-20180330
 
 LABEL maintainer="Bruce Frank Wang <bruce.frank.wang@gmail.com>" \
     forked_from="olavgg/moinmoin-wiki <https://github.com/olavgg/moinmoin-wiki>"
 
 # Copy file <qemu-arm-static> into image </usr/bin>, to build this ARM Docker image
 # on Travis CI or other amd64/i386 arch.
-COPY ./qemu-arm-static /usr/bin/qemu-arm-static
+# COPY ./qemu-arm-static /usr/bin/qemu-arm-static
 
 # For people or their machine in China, fetching from the official repository is usually slow.
 # It depends on their network, somecase maybe fast.
