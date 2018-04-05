@@ -20,8 +20,9 @@ deploy:
   skip_cleanup: true
   provider: script
   script:
-    - echo "Prepare to push..."
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker push $DOCKER_USERNAME/$DEPLOY_IMAGE
+    - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+        make docker_deploy tag=latest;
+      fi
   on:
     branch: master
