@@ -7,5 +7,4 @@ services:
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register
-  - docker run -it --rm multiarch/debian-debootstrap:armhf-jessie
   - docker build -t brucefrankwang/rpi-moinmoin:1.9.9 .
