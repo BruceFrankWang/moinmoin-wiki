@@ -9,12 +9,11 @@ sudo: required
 services:
   - docker
 
-before_install:
+install:
   - sudo apt install qemu qemu-user-static binfmt-support
 
 script:
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -t brucefrankwang/rpi-moinmoin .
+  - make build
 
 after_success:
   - echo "Prepare push..."
