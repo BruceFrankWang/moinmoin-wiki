@@ -8,5 +8,10 @@ docker_deploy:
         @echo "Usage: make $@ tag=<tag>"
         @exit 1
     endif
-#    docker tag $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):latest $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):$(tag)
-    docker push $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):$(tag)
+    ifeq ($(tag), latest)
+        docker tag $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):latest
+        docker push $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):latest
+    else
+        docker tag $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):latest $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):$(tag)
+        docker push $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):latest $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE):$(tag)
+    endif
