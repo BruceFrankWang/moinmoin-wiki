@@ -6,7 +6,7 @@ services:
   - docker
 
 install:
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker run --rm --privileged multiarch/qemu-user-static:register
 
 script:  
   - docker build -t brucefrankwang/rpi-moinmoin:1.9.9 .
