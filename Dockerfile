@@ -14,8 +14,9 @@ FROM arm32v7/debian:stretch-slim
 LABEL maintainer="Bruce Frank Wang <bruce.frank.wang@gmail.com>" \
     forked_from="olavgg/moinmoin-wiki <https://github.com/olavgg/moinmoin-wiki>"
 
-# Arch
-ARG ARCH=arm32v7
+# Copy file <qemu-arm-static> into image </usr/bin>, to build this ARM Docker image
+# on Travis CI or other amd64/i386 arch.
+COPY ./qemu-arm-static /usr/bin/qemu-arm-static
 
 # For people or their machine in China, fetching from the official repository is usually slow.
 # It depends on their network, somecase maybe fast.
