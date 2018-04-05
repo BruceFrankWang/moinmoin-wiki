@@ -18,5 +18,5 @@ script:
 
 after_succeess:
   - echo "Prepare push..."
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - make docker_deploy tag=latest
