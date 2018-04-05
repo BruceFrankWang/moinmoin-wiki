@@ -1,7 +1,7 @@
 MoinMoin on Raspberry Pi (Docker)
 =============
 
-[![Build Status](https://travis-ci.org/BruceFrankWang/rpi-moinmoin.svg?branch=master)]
+[![Build Status](https://travis-ci.org/BruceFrankWang/rpi-moinmoin.svg?branch=master)](https://travis-ci.org/BruceFrankWang/rpi-moinmoin)
 
 A Docker image with the Moinmoin wiki engine, uwsgi and nginx.
 
