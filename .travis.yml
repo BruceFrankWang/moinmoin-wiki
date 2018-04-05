@@ -6,6 +6,7 @@ services:
   - docker
 
 before_install:
+  - sudo apt-get update
   - sudo apt-get install -qqy --no-install-recommends \
     qemu \
     qemu-user-static \
