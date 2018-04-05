@@ -17,5 +17,6 @@ script:
   - docker build -t brucefrankwang/rpi-moinmoin .
 
 after_succeess:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - make docker_deploy tag=latest;
+  - echo "Prepare push..."
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - make docker_deploy tag=latest
