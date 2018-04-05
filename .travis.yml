@@ -14,7 +14,7 @@ install:
 
 script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -t $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE) .
+  - docker build -t "$DOCKER_USERNAME"/rpi-moinmoin .
 
 #after_success:
 #  - echo "Prepare push..."
