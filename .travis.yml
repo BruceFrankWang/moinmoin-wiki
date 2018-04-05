@@ -16,7 +16,7 @@ script:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t brucefrankwang/rpi-moinmoin .
 
-after_succeess:
+after_success:
   - echo "Prepare push..."
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - make docker_deploy tag=latest
