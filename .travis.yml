@@ -1,6 +1,10 @@
-sudo: required
+os: linux
+group: stable
+dist: trusty
 
 language: bash
+
+sudo: required
 
 services:
   - docker
@@ -16,6 +20,7 @@ deploy:
   skip_cleanup: true
   provider: script
   script:
+    - echo "Prepare to push..."
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - docker push $DOCKER_USERNAME/$DEPLOY_IMAGE
   on:
