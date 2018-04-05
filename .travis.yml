@@ -5,8 +5,8 @@ language: bash
 services:
   - docker
 
-include:
-  - env: TARGET=armv7-unknown-linux-gnueabihf
+install:
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 script:  
   - docker build -t brucefrankwang/rpi-moinmoin:1.9.9 .
