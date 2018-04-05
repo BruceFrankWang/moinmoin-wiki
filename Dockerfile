@@ -14,6 +14,9 @@ FROM arm32v7/debian:stretch-slim
 LABEL maintainer="Bruce Frank Wang <bruce.frank.wang@gmail.com>" \
     forked_from="olavgg/moinmoin-wiki <https://github.com/olavgg/moinmoin-wiki>"
 
+# Arch
+ARG ARCH=arm32v7
+
 # For people or their machine in China, fetching from the official repository is usually slow.
 # It depends on their network, somecase maybe fast.
 # So I give people a choice to change the repository to a mirror site in China.
