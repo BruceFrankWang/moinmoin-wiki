@@ -26,9 +26,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: 
-      - echo $TRAVIS_REPO_SLUG
-      - docker push $TRAVIS_REPO_SLUG
+    script: echo $TRAVIS_REPO_SLUG; docker push $TRAVIS_REPO_SLUG
     skip_cleanup: true
     on:
       branch: master
